@@ -45,7 +45,7 @@ export function StudentLogin() {
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gold-700">Student Login</p>
           <h2 className="mt-2 text-2xl font-bold text-slate-950">Begin secure voting</h2>
-          <p className="mt-2 text-sm text-slate-600">Enter your class, division, and roll number exactly as registered.</p>
+          <p className="mt-2 text-sm text-slate-600">Enter your class, division, and roll number to begin voting.</p>
         </div>
         <label className="block space-y-2">
           <span className="text-sm font-semibold text-slate-700">Standard</span>

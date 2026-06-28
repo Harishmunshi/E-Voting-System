@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   if (!settings.election_enabled) return NextResponse.json({ error: "Voting is not enabled right now." }, { status: 403 });
 
   const { standard, division, rollNumber } = parsed.data;
-  const { data: student, error } = await supabase
+  const { data: existingStudent, error } = await supabase
     .from("students")
     .select("id, standard, division, roll_number, has_voted")
     .eq("standard", standard)
@@ -38,7 +38,8 @@ export async function POST(request: NextRequest) {
     .maybeSingle();
 
   if (error) return NextResponse.json({ error: "Could not validate student." }, { status: 500 });
-  if (!student) return NextResponse.json({ error: "Invalid student details." }, { status: 401 });
+  const student = existingStudent ?? await createStudent(standard, division, rollNumber);
+  if (!student) return NextResponse.json({ error: "Could not register student automatically." }, { status: 500 });
   if (student.has_voted) return NextResponse.json({ error: "This student has already voted." }, { status: 409 });
 
   await setStudentSession({
@@ -49,4 +50,20 @@ export async function POST(request: NextRequest) {
   });
 
   return NextResponse.json({ ok: true });
+}
+
+async function createStudent(standard: string, division: string, rollNumber: number) {
+  const { data, error } = await getSupabaseAdmin()
+    .from("students")
+    .upsert({
+      standard,
+      division,
+      roll_number: rollNumber,
+      full_name: `Auto registered ${standard} ${division} Roll ${rollNumber}`,
+    }, { onConflict: "standard,division,roll_number" })
+    .select("id, standard, division, roll_number, has_voted")
+    .single();
+
+  if (error) return null;
+  return data;
 }
