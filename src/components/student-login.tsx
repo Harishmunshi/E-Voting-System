@@ -40,11 +40,11 @@ export function StudentLogin() {
   }
 
   return (
-    <Card className="w-full max-w-md p-6">
+    <Card className="w-full max-w-md p-7">
       <form className="space-y-5" onSubmit={onSubmit}>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gold-700">Student Login</p>
-          <h2 className="mt-2 text-2xl font-bold text-slate-950">Begin secure voting</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Student Login</p>
+          <h2 className="mt-2 text-3xl font-bold text-[#1A1A1A]">Begin secure voting</h2>
           <p className="mt-2 text-sm text-slate-600">Enter your class, division, and roll number to begin voting.</p>
         </div>
         <label className="block space-y-2">
@@ -65,8 +65,8 @@ export function StudentLogin() {
           <span className="text-sm font-semibold text-slate-700">Roll Number</span>
           <Input name="rollNumber" type="number" min={1} max={999} required placeholder="27" />
         </label>
-        {error ? <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{error}</p> : null}
-        <Button className="w-full" disabled={loading}>
+        {error ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
+        <Button className="h-[54px] w-full rounded-[14px]" disabled={loading}>
           <LogIn size={18} aria-hidden="true" />
           {loading ? "Checking..." : "Continue"}
         </Button>
