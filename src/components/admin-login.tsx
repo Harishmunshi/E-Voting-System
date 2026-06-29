@@ -37,7 +37,7 @@ export function AdminLogin() {
       <form className="space-y-5" onSubmit={onSubmit}>
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Admin Portal</p>
-          <h2 className="mt-2 text-3xl font-bold text-[#1A1A1A]">Secure sign in</h2>
+          <h2 className="mt-2 text-3xl font-bold text-[#111844]">Secure sign in</h2>
         </div>
         <label className="block space-y-2">
           <span className="text-sm font-semibold text-slate-700">Email</span>

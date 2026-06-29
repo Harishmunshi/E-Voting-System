@@ -60,12 +60,12 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
   }));
 
   return (
-    <div className="mx-auto max-w-[1400px] px-4 py-8 sm:px-6 lg:px-8">
-      <div className="mb-8 rounded-[20px] border border-slate-200 bg-white p-6 shadow-premium">
+    <div className="mx-auto max-w-7xl px-4 py-7 sm:px-6 lg:px-8">
+      <div className="mb-7 rounded-[20px] border border-slate-200 bg-white p-5 shadow-premium">
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Authenticated Voter</p>
-          <h2 className="mt-1 text-2xl font-bold text-[#1A1A1A]">
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-gold-700">Authenticated Voter</p>
+          <h2 className="mt-1 text-2xl font-bold text-[#111844]">
             {payload.student.standard} {payload.student.division} - Roll {payload.student.rollNumber}
           </h2>
         </div>
@@ -84,12 +84,12 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
       {!review ? (
         <div className="space-y-6">
           {payload.ballot.map((position) => (
-            <section key={position.id} className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-premium">
-              <div className="mb-6 flex items-center justify-between gap-3">
-                <h3 className="text-2xl font-bold text-[#1A1A1A]">{position.priority}. {position.title}</h3>
+            <section key={position.id} className="rounded-[22px] border border-slate-200 bg-white p-5 shadow-premium">
+              <div className="mb-5 flex items-center justify-between gap-3">
+                <h3 className="text-xl font-bold text-[#111844] sm:text-2xl">{position.priority}. {position.title}</h3>
                 {selected[position.id] ? <span className="text-sm font-semibold text-emerald-700">Selected</span> : null}
               </div>
-              <div className="grid justify-items-center gap-8 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid justify-items-center gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {position.candidates.map((candidate) => {
                   const active = selected[position.id] === candidate.id;
                   return (
@@ -98,8 +98,8 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
                       type="button"
                       onClick={() => setSelected((current) => ({ ...current, [position.id]: candidate.id }))}
                       className={cn(
-                        "group focus-ring relative h-[520px] w-full max-w-[400px] overflow-hidden rounded-[24px] border bg-white text-center shadow-soft transition duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-premium",
-                        active ? "border-4 border-gold-600 shadow-glow" : "border-slate-200",
+                        "group focus-ring relative h-[430px] w-full max-w-[340px] overflow-hidden rounded-[22px] border bg-white text-center shadow-soft transition duration-300 hover:-translate-y-1 hover:shadow-premium",
+                        active ? "border-[3px] border-gold-600 shadow-glow" : "border-slate-200",
                       )}
                     >
                       {active ? (
@@ -107,26 +107,26 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
                           <CheckCircle2 size={22} aria-hidden="true" />
                         </div>
                       ) : null}
-                      <div className="relative h-[220px] w-full overflow-hidden bg-maroon-50">
+                      <div className="relative h-[160px] w-full overflow-hidden bg-maroon-50">
                           {candidate.photo_url ? (
-                            <Image src={candidate.photo_url} alt={candidate.name} fill className="object-cover" sizes="400px" />
+                            <Image src={candidate.photo_url} alt={candidate.name} fill className="object-cover" sizes="340px" />
                           ) : (
-                            <div className="flex h-full items-center justify-center bg-maroon-50 text-6xl font-bold text-maroon-600">
+                            <div className="flex h-full items-center justify-center bg-maroon-50 text-5xl font-bold text-maroon-600">
                               {candidate.name.charAt(0)}
                             </div>
                           )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                         </div>
-                        <div className="flex h-[300px] flex-col px-6 py-6">
-                          <p className="text-[26px] font-bold leading-tight text-[#1A1A1A]">{candidate.name}</p>
-                          <p className="mt-2 text-base font-medium text-slate-500">{position.title}</p>
+                        <div className="flex h-[270px] flex-col px-5 py-5">
+                          <p className="text-[22px] font-bold leading-tight text-[#111844]">{candidate.name}</p>
+                          <p className="mt-2 text-sm font-semibold text-slate-500">{position.title}</p>
                           <p className="mt-1 text-sm font-semibold text-slate-500">{candidate.standard}{candidate.division ? ` ${candidate.division}` : ""}</p>
-                          {candidate.manifesto ? <p className="mt-4 line-clamp-3 text-sm text-slate-600">{candidate.manifesto}</p> : null}
+                          {candidate.manifesto ? <p className="mt-3 line-clamp-2 text-sm text-slate-600">{candidate.manifesto}</p> : null}
                           <div className="mt-auto">
-                            <div className="mx-auto mb-4 flex h-[70px] w-[70px] items-center justify-center rounded-full border-2 border-gold-600 bg-gold-50 text-xl font-bold text-maroon-600">
+                            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border-2 border-gold-600 bg-gold-50 text-base font-bold text-maroon-600">
                               {candidate.name.slice(0, 2).toUpperCase()}
                             </div>
-                            <div className="flex h-[54px] w-full items-center justify-center rounded-[14px] border border-maroon-600 bg-maroon-600 text-sm font-bold text-white transition duration-300 group-hover:border-gold-600 group-hover:bg-maroon-900">
+                            <div className="flex h-11 w-full items-center justify-center rounded-xl border border-maroon-600 bg-maroon-600 text-sm font-bold text-white transition duration-300 group-hover:border-gold-600 group-hover:bg-maroon-900">
                               {active ? "Selected" : "Vote"}
                             </div>
                           </div>
@@ -139,14 +139,14 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
           ))}
           {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
           <div className="sticky bottom-0 -mx-4 border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:rounded-[20px] sm:border">
-            <Button className="h-[54px] w-full rounded-[14px] sm:w-auto" disabled={!complete} onClick={() => setReview(true)}>
+            <Button className="h-12 w-full rounded-xl sm:w-auto" disabled={!complete} onClick={() => setReview(true)}>
               Review Ballot
             </Button>
           </div>
         </div>
       ) : (
         <Card className="p-8">
-          <h3 className="text-3xl font-bold text-[#1A1A1A]">Review your selections</h3>
+          <h3 className="text-3xl font-bold text-[#111844]">Review your selections</h3>
           <div className="mt-6 divide-y divide-slate-100">
             {selections.map(({ position, candidate }) => (
               <div key={position.id} className="flex items-center justify-between gap-4 py-4">
@@ -174,7 +174,7 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Final Confirmation</p>
-                <h3 className="mt-2 text-3xl font-bold text-[#1A1A1A]">Cast your vote?</h3>
+                <h3 className="mt-2 text-3xl font-bold text-[#111844]">Cast your vote?</h3>
               </div>
               <button className="rounded-full p-2 text-slate-500 hover:bg-slate-100" onClick={() => setConfirmOpen(false)} aria-label="Close confirmation">
                 <X size={22} />
@@ -183,9 +183,9 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
             <p className="mt-4 text-base text-slate-600">Are you sure you want to cast your vote? Once submitted, your ballot cannot be edited or submitted again.</p>
             <div className="mt-6 max-h-72 space-y-3 overflow-auto pr-2">
               {selections.map(({ position, candidate }) => (
-                <div key={position.id} className="rounded-2xl border border-slate-200 bg-[#F8F7F4] p-4">
+                <div key={position.id} className="rounded-2xl border border-slate-200 bg-[#F7F8FC] p-4">
                   <p className="text-sm font-semibold text-slate-500">{position.title}</p>
-                  <p className="text-lg font-bold text-[#1A1A1A]">{candidate?.name}</p>
+                  <p className="text-lg font-bold text-[#111844]">{candidate?.name}</p>
                 </div>
               ))}
             </div>

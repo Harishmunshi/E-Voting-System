@@ -13,7 +13,7 @@ export default async function ResultsPage() {
       <main className="min-h-screen">
         <BrandHeader eyebrow="Election Results" />
         <Card className="mx-auto mt-16 max-w-xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-[#1A1A1A]">Results are not published yet</h2>
+          <h2 className="text-2xl font-bold text-[#111844]">Results are not published yet</h2>
           <p className="mt-3 text-slate-600">Final results will appear here only after principal approval.</p>
         </Card>
       </main>
@@ -24,7 +24,7 @@ export default async function ResultsPage() {
     <main className="min-h-screen">
       <BrandHeader eyebrow="Published Results" />
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold text-[#1A1A1A]">Student Council Election Results</h2>
+        <h2 className="text-3xl font-bold text-[#111844]">Student Council Election Results</h2>
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           {dashboard.positions.map((position) => {
             const candidates = dashboard.candidates.filter((candidate) => candidate.position_id === position.id);

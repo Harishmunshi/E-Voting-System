@@ -3,7 +3,7 @@ import { SuccessCountdown } from "@/components/success-countdown";
 
 export default function SuccessPage() {
   return (
-    <main className="min-h-screen bg-[#F8F7F4]">
+    <main className="min-h-screen bg-[#F7F8FC]">
       <BrandHeader eyebrow="Completed" />
       <section className="flex min-h-[calc(100vh-80px)] items-center justify-center px-4 py-10">
         <SuccessCountdown />
