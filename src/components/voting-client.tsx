@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CheckCircle2, Loader2, Send, X } from "lucide-react";
 import type { BallotPosition } from "@/lib/types";
 import { readApiJson } from "@/lib/client-api";
@@ -15,26 +15,14 @@ type ElectionPayload = {
   student: { standard: string; division: string; rollNumber: number };
 };
 
-export function VotingClient() {
+export function VotingClient({ initialPayload }: { initialPayload: ElectionPayload }) {
   const router = useRouter();
-  const [payload, setPayload] = useState<ElectionPayload | null>(null);
+  const [payload] = useState<ElectionPayload>(initialPayload);
   const [selected, setSelected] = useState<Record<string, string>>({});
   const [review, setReview] = useState(false);
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-
-  useEffect(() => {
-    fetch("/api/election")
-      .then(async (response) => {
-        const body = await readApiJson(response);
-        if (!response.ok) throw new Error(body.error ?? "Unable to load ballot.");
-        setPayload(body as ElectionPayload);
-      })
-      .catch((issue: Error) => setError(issue.message))
-      .finally(() => setLoading(false));
-  }, []);
 
   const complete = useMemo(() => {
     if (!payload) return false;
@@ -65,21 +53,6 @@ export function VotingClient() {
 
     router.push("/success");
   }
-
-  if (loading) {
-    return <div className="flex min-h-[60vh] items-center justify-center text-maroon-600"><Loader2 className="animate-spin" /></div>;
-  }
-
-  if (error && !payload) {
-    return (
-      <Card className="mx-auto mt-12 max-w-xl p-6 text-center">
-        <p className="font-semibold text-red-700">{error}</p>
-        <Button className="mt-5" onClick={() => router.push("/")}>Return to Login</Button>
-      </Card>
-    );
-  }
-
-  if (!payload) return null;
 
   const selections = payload.ballot.map((position) => ({
     position,

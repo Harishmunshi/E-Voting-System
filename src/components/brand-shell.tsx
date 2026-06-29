@@ -4,7 +4,7 @@ export function BrandHeader({ eyebrow }: { eyebrow?: string }) {
       <div className="mx-auto flex min-h-[90px] max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <img
-            src="/school-logo.svg"
+            src="/school-logo.png"
             alt="M.E.S. English Medium School logo"
             className="h-14 w-14 rounded-xl bg-white/10 object-contain p-1 ring-1 ring-white/15"
           />
