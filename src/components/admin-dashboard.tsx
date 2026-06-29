@@ -122,8 +122,8 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gold-700">Election Control Center</p>
-          <h2 className="mt-1 text-3xl font-bold text-slate-950">Admin Dashboard</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Election Control Center</p>
+          <h2 className="mt-1 text-3xl font-bold text-[#1A1A1A]">Admin Dashboard</h2>
         </div>
         <form action="/api/admin/logout" method="post">
           <Button variant="secondary">Sign out</Button>
@@ -140,7 +140,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
       <Card className="mt-6 p-5">
         <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
           <div>
-            <h3 className="text-xl font-bold text-slate-950">Election Management</h3>
+            <h3 className="text-xl font-bold text-[#1A1A1A]">Election Management</h3>
             <p className="mt-1 text-sm text-slate-600">
               Voting is {dashboard.settings.election_enabled ? "enabled" : "disabled"} · Results are {dashboard.settings.results_published ? "published" : "hidden"}
             </p>
@@ -153,12 +153,12 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
             <Button variant="danger" disabled={busy} onClick={() => electionAction("reset_election")}><RotateCcw size={16} />Reset</Button>
           </div>
         </div>
-        {message ? <p className="mt-4 rounded-lg bg-royal-50 px-4 py-3 text-sm font-semibold text-royal-900">{message}</p> : null}
+        {message ? <p className="mt-4 rounded-2xl border border-gold-600/30 bg-gold-50 px-4 py-3 text-sm font-semibold text-maroon-900">{message}</p> : null}
       </Card>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
         <Card className="p-5">
-          <h3 className="text-xl font-bold text-slate-950">Add Student</h3>
+          <h3 className="text-xl font-bold text-[#1A1A1A]">Add Student</h3>
           <form className="mt-4 grid gap-3" onSubmit={addStudent}>
             <Input name="full_name" placeholder="Student name optional" />
             <div className="grid grid-cols-3 gap-3">
@@ -168,8 +168,8 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
             </div>
             <Button><Plus size={16} />Add Student</Button>
           </form>
-          <form className="mt-5 rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600" onSubmit={importStudents}>
-            <Upload className="mb-2 text-royal-700" size={20} />
+          <form className="mt-5 rounded-2xl border border-dashed border-gold-600/50 bg-[#F8F7F4] p-4 text-sm text-slate-600" onSubmit={importStudents}>
+            <Upload className="mb-2 text-maroon-600" size={20} />
             <p className="mb-3 font-semibold text-slate-800">Bulk CSV import</p>
             <Input name="file" type="file" accept=".csv,text/csv" required />
             <p className="mt-2 text-xs">Headers: standard, division, roll_number, full_name</p>
@@ -178,7 +178,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
         </Card>
 
         <Card className="p-5">
-          <h3 className="text-xl font-bold text-slate-950">Add Candidate</h3>
+          <h3 className="text-xl font-bold text-[#1A1A1A]">Add Candidate</h3>
           <form className="mt-4 grid gap-3" onSubmit={addCandidate}>
             <Select name="position_id" required defaultValue="">
               <option value="" disabled>Position</option>
@@ -198,7 +198,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
             <Input name="manifesto" placeholder="Manifesto or tagline optional" />
             <Button><Plus size={16} />Add Candidate</Button>
           </form>
-          <form className="mt-4 rounded-lg border border-dashed border-slate-300 p-4" onSubmit={uploadPhoto}>
+          <form className="mt-4 rounded-2xl border border-dashed border-gold-600/50 bg-[#F8F7F4] p-4" onSubmit={uploadPhoto}>
             <p className="mb-3 text-sm font-semibold text-slate-800">Upload candidate photo</p>
             <Input name="file" type="file" accept="image/*" required />
             <Button className="mt-3" variant="secondary"><Upload size={16} />Upload Photo</Button>
@@ -208,8 +208,8 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
 
       <Card className="mt-6 p-5">
         <div className="mb-4 flex items-center gap-2">
-          <BarChart3 className="text-royal-700" size={20} />
-          <h3 className="text-xl font-bold text-slate-950">Result Monitor</h3>
+          <BarChart3 className="text-maroon-600" size={20} />
+          <h3 className="text-xl font-bold text-[#1A1A1A]">Result Monitor</h3>
         </div>
         {busy ? <Loader2 className="animate-spin" /> : null}
         <div className="h-80">
@@ -219,7 +219,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
               <XAxis dataKey="position" tick={{ fontSize: 11 }} interval={0} />
               <YAxis allowDecimals={false} />
               <Tooltip />
-              <Bar dataKey="leader" fill="#1d4ed8" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="leader" fill="#6E112D" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -227,7 +227,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
 
       <Card className="mt-6 overflow-hidden">
         <div className="border-b border-slate-200 p-5">
-          <h3 className="text-xl font-bold text-slate-950">Candidates</h3>
+          <h3 className="text-xl font-bold text-[#1A1A1A]">Candidates</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-sm">

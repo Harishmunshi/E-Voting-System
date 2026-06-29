@@ -164,7 +164,7 @@ export function VotingClient() {
               </div>
             </section>
           ))}
-          {error ? <p className="rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
+          {error ? <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
           <div className="sticky bottom-0 -mx-4 border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:rounded-[20px] sm:border">
             <Button className="h-[54px] w-full rounded-[14px] sm:w-auto" disabled={!complete} onClick={() => setReview(true)}>
               Review Ballot
@@ -185,7 +185,7 @@ export function VotingClient() {
               </div>
             ))}
           </div>
-          {error ? <p className="mt-4 rounded-lg bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
+          {error ? <p className="mt-4 rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Button variant="secondary" onClick={() => setReview(false)} disabled={submitting}>Edit selections</Button>
             <Button onClick={() => setConfirmOpen(true)} disabled={submitting}>
