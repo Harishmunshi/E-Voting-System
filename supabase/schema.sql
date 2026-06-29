@@ -68,6 +68,16 @@ create table if not exists candidates (
 create index if not exists candidates_position_idx on candidates(position_id);
 create index if not exists students_has_voted_idx on students(has_voted);
 
+insert into candidates (position_id, name, standard, division, photo_url, manifesto, is_active)
+select id, 'NOTA', 'All Classes', null, '/nota.png', 'None of the above.', true
+from positions p
+where not exists (
+  select 1
+  from candidates c
+  where c.position_id = p.id
+    and c.name = 'NOTA'
+);
+
 create table if not exists admin_audit_logs (
   id uuid primary key default gen_random_uuid(),
   actor_email text not null,

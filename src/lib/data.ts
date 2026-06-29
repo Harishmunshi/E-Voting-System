@@ -13,6 +13,7 @@ export async function getElectionSettings(): Promise<ElectionSettings> {
 }
 
 export async function getBallot(): Promise<BallotPosition[]> {
+  const supabase = getSupabaseAdmin();
   const { data: positions, error: positionsError } = await getSupabaseAdmin()
     .from("positions")
     .select("id, title, slug, priority, gender")
@@ -20,7 +21,9 @@ export async function getBallot(): Promise<BallotPosition[]> {
 
   if (positionsError) throw positionsError;
 
-  const { data: candidates, error: candidatesError } = await getSupabaseAdmin()
+  await ensureNotaCandidates(positions as Position[]);
+
+  const { data: candidates, error: candidatesError } = await supabase
     .from("candidates")
     .select("id, position_id, name, standard, division, photo_url, manifesto, is_active")
     .eq("is_active", true)
@@ -31,6 +34,31 @@ export async function getBallot(): Promise<BallotPosition[]> {
   return (positions as Position[]).map((position) => ({
     ...position,
     candidates: (candidates as Candidate[]).filter((candidate) => candidate.position_id === position.id),
+  }));
+}
+
+async function ensureNotaCandidates(positions: Position[]) {
+  const supabase = getSupabaseAdmin();
+
+  await Promise.all(positions.map(async (position) => {
+    const { data: existing, error: lookupError } = await supabase
+      .from("candidates")
+      .select("id")
+      .eq("position_id", position.id)
+      .eq("name", "NOTA")
+      .maybeSingle();
+
+    if (lookupError || existing) return;
+
+    await supabase.from("candidates").insert({
+      position_id: position.id,
+      name: "NOTA",
+      standard: "All Classes",
+      division: null,
+      photo_url: "/nota.png",
+      manifesto: "None of the above.",
+      is_active: true,
+    });
   }));
 }
 
