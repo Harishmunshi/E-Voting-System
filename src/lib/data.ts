@@ -32,6 +32,10 @@ const ELECTION_CANDIDATES = [
   { positionTitle: "Sports Captain (Girl)", name: "Shaikh Aksha", standard: "Std 9" },
 ] as const;
 
+const REMOVED_CANDIDATES = [
+  { positionTitle: "Head Boy", name: "Harish Munshi" },
+] as const;
+
 export async function getElectionSettings(): Promise<ElectionSettings> {
   const { data, error } = await getSupabaseAdmin()
     .from("election_settings")
@@ -53,6 +57,7 @@ export async function getBallot(): Promise<BallotPosition[]> {
   if (positionsError) throw positionsError;
 
   await ensureElectionCandidates(positions as Position[]);
+  await deactivateRemovedCandidates(positions as Position[]);
   await ensureNotaCandidates(positions as Position[]);
 
   const { data: candidates, error: candidatesError } = await supabase
@@ -65,8 +70,16 @@ export async function getBallot(): Promise<BallotPosition[]> {
 
   return (positions as Position[]).map((position) => ({
     ...position,
-    candidates: (candidates as Candidate[]).filter((candidate) => candidate.position_id === position.id),
+    candidates: sortCandidates((candidates as Candidate[]).filter((candidate) => candidate.position_id === position.id)),
   }));
+}
+
+function sortCandidates(candidates: Candidate[]) {
+  return [...candidates].sort((a, b) => {
+    if (a.name === "NOTA") return 1;
+    if (b.name === "NOTA") return -1;
+    return a.name.localeCompare(b.name);
+  });
 }
 
 async function ensureElectionCandidates(positions: Position[]) {
@@ -96,6 +109,22 @@ async function ensureElectionCandidates(positions: Position[]) {
       manifesto: `Candidate for ${candidate.positionTitle}.`,
       is_active: true,
     });
+  }));
+}
+
+async function deactivateRemovedCandidates(positions: Position[]) {
+  const supabase = getSupabaseAdmin();
+  const positionIds = new Map(positions.map((position) => [position.title, position.id]));
+
+  await Promise.all(REMOVED_CANDIDATES.map(async (candidate) => {
+    const positionId = positionIds.get(candidate.positionTitle);
+    if (!positionId) return;
+
+    await supabase
+      .from("candidates")
+      .update({ is_active: false })
+      .eq("position_id", positionId)
+      .eq("name", candidate.name);
   }));
 }
 
@@ -138,6 +167,7 @@ export async function getAdminDashboard() {
   if (positions.error) throw positions.error;
 
   await ensureElectionCandidates(positions.data as Position[]);
+  await deactivateRemovedCandidates(positions.data as Position[]);
   await ensureNotaCandidates(positions.data as Position[]);
 
   const { data: candidates, error: candidatesError } = await supabase
