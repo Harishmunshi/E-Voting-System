@@ -181,7 +181,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
             <Button variant="danger" disabled={busy} onClick={() => electionAction("reset_election")}><RotateCcw size={16} />Reset</Button>
           </div>
         </div>
-        {message ? <p className="mt-4 rounded-lg border border-gold-500/30 bg-gold-500/12 px-4 py-3 text-sm font-semibold text-gold-100">{message}</p> : null}
+        {message ? <p className="mt-4 rounded-lg border border-gold-500/30 bg-gold-500/15 px-4 py-3 text-sm font-semibold text-gold-100">{message}</p> : null}
       </Card>
 
       <Card className="mt-6 p-5">
@@ -283,7 +283,7 @@ export function AdminDashboard({ initial }: { initial: Dashboard }) {
             </thead>
             <tbody className="divide-y divide-gold-500/15">
               {dashboard.candidates.map((candidate) => (
-                <tr key={candidate.id} className={candidate.is_active ? "" : "opacity-55"}>
+                <tr key={candidate.id} className={candidate.is_active ? "" : "opacity-50"}>
                   <td className="px-5 py-3 text-maroon-100/80">{dashboard.positions.find((position) => position.id === candidate.position_id)?.title}</td>
                   <td className="px-5 py-3 font-semibold text-maroon-50">{candidate.name}</td>
                   <td className="px-5 py-3 text-maroon-100/80">{candidate.standard} {candidate.division}</td>
