@@ -4,7 +4,16 @@ import { getAdminSession } from "@/lib/security";
 import { getSupabaseAdmin } from "@/lib/supabase";
 
 const schema = z.object({
-  action: z.enum(["enable", "disable", "lock_results", "publish_results", "reset_election", "reset_voting_status"]),
+  action: z.enum([
+    "enable",
+    "disable",
+    "lock_results",
+    "publish_results",
+    "reset_election",
+    "reset_voting_status",
+    "clear_students",
+    "restore_candidate_entries",
+  ]),
   principalCode: z.string().optional(),
 });
 
@@ -52,6 +61,13 @@ export async function POST(request: NextRequest) {
       principal_approved_at: null,
       updated_at: new Date().toISOString(),
     }).eq("id", true);
+  }
+  if (action === "clear_students") {
+    await supabase.from("students").delete().neq("id", "00000000-0000-0000-0000-000000000000");
+  }
+  if (action === "restore_candidate_entries") {
+    await supabase.from("candidates").delete().neq("name", "NOTA");
+    await supabase.from("candidates").update({ vote_count: 0, is_active: true, updated_at: new Date().toISOString() }).eq("name", "NOTA");
   }
 
   await supabase.from("admin_audit_logs").insert({ actor_email: session.email, action, entity: "election" });
