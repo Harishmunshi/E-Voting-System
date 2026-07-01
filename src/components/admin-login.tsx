@@ -36,19 +36,19 @@ export function AdminLogin() {
     <Card className="mx-auto mt-16 w-full max-w-md p-7">
       <form className="space-y-5" onSubmit={onSubmit}>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Admin Portal</p>
-          <h2 className="mt-2 text-3xl font-bold text-[#111844]">Secure sign in</h2>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-gold-500">Admin Portal</p>
+          <h2 className="mt-2 text-3xl font-black text-maroon-50">Secure sign in</h2>
         </div>
         <label className="block space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Email</span>
+          <span className="text-sm font-semibold text-maroon-100">Email</span>
           <Input name="email" type="email" required />
         </label>
         <label className="block space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Password</span>
+          <span className="text-sm font-semibold text-maroon-100">Password</span>
           <Input name="password" type="password" required />
         </label>
-        {error ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
-        <Button className="h-[54px] w-full rounded-[14px]" disabled={loading}>
+        {error ? <p className="rounded-lg bg-red-500/15 px-4 py-3 text-sm font-semibold text-red-200">{error}</p> : null}
+        <Button className="h-[54px] w-full" disabled={loading}>
           <LockKeyhole size={18} aria-hidden="true" />
           {loading ? "Signing in..." : "Sign in"}
         </Button>
