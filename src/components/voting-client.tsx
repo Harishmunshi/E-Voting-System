@@ -102,7 +102,7 @@ export function VotingClient({ initialPayload }: { initialPayload: ElectionPaylo
                       onClick={() => setSelected((current) => ({ ...current, [position.id]: candidate.id }))}
                       className={cn(
                         "group focus-ring flex min-h-[72px] w-full items-center gap-3 rounded-lg border p-3 text-left transition duration-200 hover:border-gold-500 hover:bg-maroon-700",
-                        active ? "border-gold-500 bg-gold-500/14 shadow-glow" : "border-gold-500/20 bg-maroon-900/35",
+                        active ? "border-gold-500 bg-gold-500/15 shadow-glow" : "border-gold-500/20 bg-maroon-900/35",
                       )}
                     >
                       <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gold-500/25 bg-maroon-900 text-sm font-bold text-gold-100">
