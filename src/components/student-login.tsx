@@ -43,30 +43,30 @@ export function StudentLogin() {
     <Card className="w-full max-w-md p-7">
       <form className="space-y-5" onSubmit={onSubmit}>
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-maroon-600">Student Login</p>
-          <h2 className="mt-2 text-3xl font-bold text-[#111844]">Begin secure voting</h2>
-          <p className="mt-2 text-sm text-slate-600">Enter your class, division, and roll number to begin voting.</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.22em] text-gold-500">Student Login</p>
+          <h2 className="mt-2 text-3xl font-black text-maroon-50">Begin secure voting</h2>
+          <p className="mt-2 text-sm text-maroon-100/70">Enter your class, division, and roll number to begin voting.</p>
         </div>
         <label className="block space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Standard</span>
+          <span className="text-sm font-semibold text-maroon-100">Standard</span>
           <Select name="standard" required defaultValue="">
             <option value="" disabled>Select standard</option>
             {STANDARDS.map((standard) => <option key={standard}>{standard}</option>)}
           </Select>
         </label>
         <label className="block space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Division</span>
+          <span className="text-sm font-semibold text-maroon-100">Division</span>
           <Select name="division" required defaultValue="">
             <option value="" disabled>Select division</option>
             {DIVISIONS.map((division) => <option key={division}>{division}</option>)}
           </Select>
         </label>
         <label className="block space-y-2">
-          <span className="text-sm font-semibold text-slate-700">Roll Number</span>
+          <span className="text-sm font-semibold text-maroon-100">Roll Number</span>
           <Input name="rollNumber" type="number" min={1} max={999} required placeholder="27" />
         </label>
-        {error ? <p className="rounded-xl bg-red-50 px-4 py-3 text-sm font-semibold text-red-700">{error}</p> : null}
-        <Button className="h-[54px] w-full rounded-[14px]" disabled={loading}>
+        {error ? <p className="rounded-lg bg-red-500/15 px-4 py-3 text-sm font-semibold text-red-200">{error}</p> : null}
+        <Button className="h-[54px] w-full" disabled={loading}>
           <LogIn size={18} aria-hidden="true" />
           {loading ? "Checking..." : "Continue"}
         </Button>
