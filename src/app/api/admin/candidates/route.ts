@@ -53,7 +53,11 @@ export async function DELETE(request: NextRequest) {
   const id = new URL(request.url).searchParams.get("id");
   if (!id) return NextResponse.json({ error: "Missing id." }, { status: 400 });
 
-  const { error } = await getSupabaseAdmin().from("candidates").delete().eq("id", id);
+  const { error } = await getSupabaseAdmin()
+    .from("candidates")
+    .update({ is_active: false, updated_at: new Date().toISOString() })
+    .eq("id", id);
+
   if (error) return NextResponse.json({ error: error.message }, { status: 400 });
   await audit(session.email, "delete", id);
   return NextResponse.json({ ok: true });
